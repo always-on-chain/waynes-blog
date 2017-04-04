@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="iso-8859-7">
+  </head>
+  <div class="background-image">
+    <header>
+      <nav class="navigation-bar">
+        <ul class="navigation-items">
+          <li id="about-list-item"><a href="#about">About</a></li>
+          <li id="contact-list-item"><a href="#contact">Contact</a></li>
+          <li id="blog-list-item"><%= link_to 'Blog', posts_path %></li>
+        </ul>
+      </nav>
+    </header>
+    <body>
+      <div class ="first_section">
+        <h1 class="title-1">Hi, I'm Wayne</h1>
+        <h2 class="title-2">Welcome to my website</h2>
+      </div>
+    </div>
+      <div class="container">
+        <div class="second_section">
+          <div id="about">
+            <h2 class="about-title">About Me</h2>
+          </div>
+          <div class="skills_passions_container">
+            <div class="skills">
+              <h3 class="skills_title">My skills</h3>
+              <ul class="skills-list">
+                <li id="skill-1">Entrepreneurship</li>
+                <li id="skill-2">Marketing</li>
+                <li id="skill-3">Product</li>
+                <li id="skill-4">Programming (beginner)</li>
+              </ul>
+            </div>
+            <div class="passions">
+              <h3 class="passions_title">My Passions</h3>
+              <ul class="passions-list">
+                <li id="passion-1">Learning</li>
+                <li id="passion-2">Reading</li>
+                <li id="passion-3">Programming</li>
+                <li id="passion-4">Sports</li>
+              </ul>
+            </div>
+        </div>
+    </div>
+      <hr>
+       <div id="contact">
+        <h2 class="contact-title">Contact Me</h2>
+        <form id="contact_me" action="https://formspree.io/waynekwest88@gmail.com" method="POST">
+          <input required="required" type="text" name="name" placeholder="Your name"/>
+          <input required="required" type="email" name="_replyto" placeholder="Your email">
+          <textarea required="required" placeholder="I'd love to hear from you - send me a message!"></textarea>
+          <input class="submit-button" type="submit" value="Send">
+        </form>
+      </div>
+    </div>
+    <footer>
+      <div class="copyright">
+      <p>Copyright (c) 2016 Copyright {Your Name} All Rights Reserved.</p>
+      </div>
+    </footer>
+    <script>
+        var title = $('.title-1');    
+        title.text("Wayne's Website");
+        title.css({color: "red", fontSize: "30px"})
+        
+        function changeTitleColor(){
+          var randomColor = getRandomColor();
+          title.css({color: randomColor});
+        }
+        
+        function getRandomColor(){
+          return "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+        }
+        
+        //$(".background-image").click(changeTitleColor);
+        $(".title-1").hover(changeTitleColor);
+
+        
+        $.ajax({
+            url: 'api/v1/weather',
+            type: 'GET',
+            //data: { lat: lat, lon: lng} ,
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+              var temp = response.currently.temperature;
+              var summary = response.currently.summary;
+              var subTitle = $('.title-2');
+              subTitle.text("It is " + temp + " degrees and " + summary.toLowerCase() + ".");
+            },
+            error: function () {
+              console.log(response);
+            }
+        });
+        
+        
+         //$.ajax({
+            //url: 'api/v1/weather',
+            //type: 'GET',
+            //data: {lat: lat, lon: lng},
+            //contentType: 'application/json; charset=utf-8',
+            //success: function (position) {
+              //var lat = position.coords.latitude;
+              //var lon = position.coords.longitude;
+              //var subTitle = $('.title-2');
+              //subTitle.text("It is " + lat + " degrees and " + lon + ".");
+            //},
+            //error: function () {
+              //console.log(response);
+            //}
+        //});
+      </script>
+    </body>
+</html>
